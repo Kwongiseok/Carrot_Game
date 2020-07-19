@@ -1,10 +1,46 @@
 body {
   background-color: black;
 }
+button {
+  background-color: blanchedalmond;
+  border: 2px solid black;
+  outline: none;
+  height: 35px;
+  width: 35px;
+  border-radius: 6px;
+  font-size: 18px;
+}
+button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
 
+ul {
+  width: 356px;
+  height: 200px;
+  padding: 0;
+
+  margin-top: 10px;
+  position: absolute;
+}
+img:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.bug__img {
+  width: 40px;
+}
+.carrot__img {
+  width: 50px;
+  border-radius: 50%;
+}
 div {
   margin: auto;
 }
+.playbox__time {
+  line-height: 30px; /* Time vertical sort */
+}
+
 section {
   height: 350px;
   width: 50%;
@@ -18,35 +54,11 @@ section {
 }
 
 .playbox__start {
-  height: 35px;
-  width: 35px;
-  border-radius: 6px;
-  background-color: blanchedalmond;
-  border: 2px solid black;
-  outline: none;
-  font-size: 18px;
   margin-top: 10px;
 }
-.playbox__start:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-  transition: 300ms;
-}
-
 .playbox__stop {
-  height: 35px;
-  width: 35px;
-  border-radius: 6px;
-  background-color: blanchedalmond;
-  border: 2px solid black;
-  outline: none;
-  font-size: 18px;
   margin-top: 10px;
-  visibility: hidden;
-}
-.playbox__stop:hover {
-  cursor: pointer;
-  transform: scale(1.05);
+  display: none;
 }
 
 .playbox__time {
@@ -70,4 +82,38 @@ section {
   margin-top: 5px;
   color: white;
   font-size: 40px;
+  line-height: 40px;
+}
+
+.lost {
+  position: static;
+  top: 150px;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 200px;
+  height: 70px;
+  border-radius: 18px;
+  margin-top: -60px;
+  display: none;
+  z-index: 1;
+}
+
+.lost__return,
+.win__return {
+  margin-top: 5px;
+}
+.Message {
+  color: white;
+  font-size: 20px;
+  margin: 0;
+}
+.win {
+  position: relative;
+  top: 150px;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 200px;
+  height: 70px;
+  border-radius: 18px;
+  margin-top: -60px;
+  display: none;
+  z-index: 1;
 }
