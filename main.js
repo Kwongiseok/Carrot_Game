@@ -6,13 +6,12 @@ let x;
 let first = true;
 let random__bug;
 let random__carrot;
-let startAud, bug_pull, game_win, alert, carrot_pull;
 
-startAud = new Audio("carrot/sound/bg.mp3");
-bug_pull = new Audio("carrot/sound/bug_pull.mp3");
-carrot_pull = new Audio("carrot/sound/carrot_pull.mp3");
-game_win = new Audio("carrot/sound/game_win.mp3");
-alert = new Audio("carrot/sound/alert.wav");
+let startAud = new Audio("carrot/sound/bg.mp3");
+let bug_pull = new Audio("carrot/sound/bug_pull.mp3");
+let carrot_pull = new Audio("carrot/sound/carrot_pull.mp3");
+let game_win = new Audio("carrot/sound/game_win.mp3");
+let alert = new Audio("carrot/sound/alert.wav");
 
 const start_btn = document.querySelector(".playbox__start");
 const stop_btn = document.querySelector(".playbox__stop");
@@ -28,8 +27,8 @@ const itemsRect = items.getBoundingClientRect();
 start_btn.addEventListener("click", (e) => {
   start_btn.style.display = "none";
   stop_btn.style.display = "inline";
+  startAud.play();
   if (first) {
-    startAud.play();
     random__bug = Math.floor(Math.random() * 5) + 5;
     random__carrot = Math.floor(Math.random() * 5) + 5;
     playbox__counter.innerHTML = random__carrot;
@@ -76,6 +75,7 @@ start_btn.addEventListener("click", (e) => {
 stop_btn.addEventListener("click", (e) => {
   stop_btn.style.display = "none";
   start_btn.style.display = "inline";
+  startAud.pause();
   clearInterval(x);
 });
 
@@ -105,7 +105,6 @@ items.addEventListener("click", (e) => {
   if (id) {
     if (e.target.className == "bug__img") {
       bug_pull.play();
-      console.log(e.target);
       clearInterval(x);
       stop_btn.style.visibility = "hidden";
       lost.style.display = "block";
