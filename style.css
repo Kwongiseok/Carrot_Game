@@ -1,6 +1,9 @@
 body {
   background-color: black;
 }
+iframe {
+  display: none;
+}
 button {
   background-color: blanchedalmond;
   border: 2px solid black;
@@ -14,28 +17,24 @@ button:hover {
   cursor: pointer;
   transform: scale(1.05);
 }
-
-ul {
-  width: 356px;
-  height: 200px;
-  padding: 0;
-
-  margin-top: 10px;
-  position: absolute;
-}
-img:hover {
-  cursor: pointer;
-  transform: scale(1.05);
+.items {
+  height: 60%;
 }
 .bug__img {
   width: 40px;
 }
 .carrot__img {
   width: 50px;
-  border-radius: 50%;
 }
 div {
   margin: auto;
+}
+img {
+  position: absolute;
+}
+img:hover {
+  cursor: pointer;
+  transform: scale(1.05);
 }
 .playbox__time {
   line-height: 30px; /* Time vertical sort */
@@ -86,7 +85,7 @@ section {
 }
 
 .lost {
-  position: static;
+  position: relative;
   top: 150px;
   background-color: rgba(0, 0, 0, 0.6);
   width: 200px;

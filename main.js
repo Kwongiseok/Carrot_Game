@@ -6,6 +6,13 @@ let x;
 let first = true;
 let random__bug;
 let random__carrot;
+let startAud, bug_pull, game_win, alert, carrot_pull;
+
+startAud = new Audio("carrot/sound/bg.mp3");
+bug_pull = new Audio("carrot/sound/bug_pull.mp3");
+carrot_pull = new Audio("carrot/sound/carrot_pull.mp3");
+game_win = new Audio("carrot/sound/game_win.mp3");
+alert = new Audio("carrot/sound/alert.wav");
 
 const start_btn = document.querySelector(".playbox__start");
 const stop_btn = document.querySelector(".playbox__stop");
@@ -15,13 +22,14 @@ const playbox__time = document.querySelector(".playbox__time");
 const playbox__counter = document.querySelector(".playbox__counter");
 const lost__return = document.querySelector(".lost__return");
 const win__return = document.querySelector(".win__return");
-const bugs = document.querySelector(".bugs");
-const carrots = document.querySelector(".carrots");
+const items = document.querySelector(".items");
+const itemsRect = items.getBoundingClientRect();
 
 start_btn.addEventListener("click", (e) => {
   start_btn.style.display = "none";
   stop_btn.style.display = "inline";
   if (first) {
+    startAud.play();
     random__bug = Math.floor(Math.random() * 5) + 5;
     random__carrot = Math.floor(Math.random() * 5) + 5;
     playbox__counter.innerHTML = random__carrot;
@@ -31,9 +39,10 @@ start_btn.addEventListener("click", (e) => {
       bug__tmp.setAttribute("class", "bug__img");
       bug__tmp.setAttribute("src", "carrot/img/bug.png");
       bug__tmp.setAttribute("data-id", i);
+      bug__tmp.style.top = Math.floor(Math.random() * 160) + 200 + "px";
+      bug__tmp.style.left = Math.floor(Math.random() * 520) + 300 + "px";
 
-      bug__tmp.style.left = Math.floor(Math.random() * 300) + "px";
-      bugs.appendChild(bug__tmp);
+      items.appendChild(bug__tmp);
     }
     for (var i = 0; i < random__carrot; i++) {
       /* Carrot Generator */
@@ -41,9 +50,9 @@ start_btn.addEventListener("click", (e) => {
       carrot__tmp.setAttribute("class", "carrot__img");
       carrot__tmp.setAttribute("src", "carrot/img/carrot.png");
       carrot__tmp.setAttribute("data-id", i);
-
-      carrot__tmp.style.left = Math.floor(Math.random() * 300) + "px";
-      carrots.appendChild(carrot__tmp);
+      carrot__tmp.style.top = Math.floor(Math.random() * 160) + 200 + "px";
+      carrot__tmp.style.left = Math.floor(Math.random() * 520) + 300 + "px";
+      items.appendChild(carrot__tmp);
     }
   }
   first = false;
@@ -57,6 +66,7 @@ start_btn.addEventListener("click", (e) => {
     playbox__time.innerHTML = "00:" + sec;
     time--;
     if (time < 0) {
+      alert.play();
       clearInterval(x);
       lost.style.display = "block";
     }
@@ -72,10 +82,10 @@ stop_btn.addEventListener("click", (e) => {
 lost__return.addEventListener("click", (e) => {
   time = 10;
   first = true;
+  startAud.pause();
   lost.style.display = "none";
   win.style.display = "none";
-  bugs.innerHTML = ``;
-  carrots.innerHTML = ``;
+  items.innerHTML = ``;
   stop_btn.style.visibility = "visible";
   start_btn.dispatchEvent(new Event("click"));
 });
@@ -85,31 +95,31 @@ win__return.addEventListener("click", (e) => {
   first = true;
   lost.style.display = "none";
   win.style.display = "none";
-  bugs.innerHTML = ``;
-  carrots.innerHTML = ``;
+  items.innerHTML = ``;
   stop_btn.style.visibility = "visible";
   start_btn.dispatchEvent(new Event("click"));
 });
 
-bugs.addEventListener("click", (e) => {
+items.addEventListener("click", (e) => {
   const id = e.target.dataset.id;
   if (id) {
-    clearInterval(x);
-    stop_btn.style.visibility = "hidden";
-    lost.style.display = "block";
-  }
-});
-
-carrots.addEventListener("click", (e) => {
-  const id = e.target.dataset.id;
-  if (id) {
-    const deleted = document.querySelector(`.carrot__img[data-id="${id}"]`);
-    deleted.remove();
-    playbox__counter.textContent--;
-    if (playbox__counter.textContent === "0") {
+    if (e.target.className == "bug__img") {
+      bug_pull.play();
+      console.log(e.target);
       clearInterval(x);
       stop_btn.style.visibility = "hidden";
-      win.style.display = "block";
+      lost.style.display = "block";
+    } else if (e.target.className == "carrot__img") {
+      carrot_pull.play();
+      const deleted = document.querySelector(`.carrot__img[data-id="${id}"]`);
+      deleted.remove();
+      playbox__counter.textContent--;
+      if (playbox__counter.textContent === "0") {
+        game_win.play();
+        clearInterval(x);
+        stop_btn.style.visibility = "hidden";
+        win.style.display = "block";
+      }
     }
   }
 });
