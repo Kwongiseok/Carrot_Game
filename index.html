@@ -15,7 +15,7 @@
 
   <body>
     <section class="game">
-      <div class="playbox">
+      <header class="playbox">
         <button class="playbox__start">
           <i class="fas fa-play"></i>
         </button>
@@ -24,20 +24,15 @@
         </button>
         <div class="playbox__time">00:00</div>
         <div class="playbox__counter">0</div>
-      </div>
-      <div class="win">
-        <button class="win__return">
+      </header>
+      <section class="items"></section>
+
+      <footer class="popup">
+        <button class="return__btn">
           <i class="fas fa-redo-alt"></i>
         </button>
-        <p class="Message">You WON 👍</p>
-      </div>
-      <div class="lost">
-        <button class="lost__return">
-          <i class="fas fa-redo-alt"></i>
-        </button>
-        <p class="Message">You Lost 😭</p>
-      </div>
-      <div class="items"></div>
+        <p class="Message"></p>
+      </footer>
     </section>
   </body>
 </html>

@@ -18,6 +18,7 @@ button:hover {
   transform: scale(1.05);
 }
 .items {
+  position: relative;
   height: 60%;
 }
 .bug__img {
@@ -40,7 +41,8 @@ img:hover {
   line-height: 30px; /* Time vertical sort */
 }
 
-section {
+.game {
+  position: relative;
   height: 350px;
   width: 50%;
   background: url("carrot/img/background.png");
@@ -84,20 +86,7 @@ section {
   line-height: 40px;
 }
 
-.lost {
-  position: relative;
-  top: 150px;
-  background-color: rgba(0, 0, 0, 0.6);
-  width: 200px;
-  height: 70px;
-  border-radius: 18px;
-  margin-top: -60px;
-  display: none;
-  z-index: 1;
-}
-
-.lost__return,
-.win__return {
+.return__btn {
   margin-top: 5px;
 }
 .Message {
@@ -105,14 +94,13 @@ section {
   font-size: 20px;
   margin: 0;
 }
-.win {
-  position: relative;
-  top: 150px;
+.popup {
+  transform: translateY(-175%);
   background-color: rgba(0, 0, 0, 0.6);
-  width: 200px;
+  width: 60%;
   height: 70px;
   border-radius: 18px;
-  margin-top: -60px;
+  margin: auto;
   display: none;
   z-index: 1;
 }

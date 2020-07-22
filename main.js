@@ -15,15 +15,32 @@ let alert = new Audio("carrot/sound/alert.wav");
 
 const start_btn = document.querySelector(".playbox__start");
 const stop_btn = document.querySelector(".playbox__stop");
-const lost = document.querySelector(".lost");
-const win = document.querySelector(".win");
+const popup = document.querySelector(".popup");
 const playbox__time = document.querySelector(".playbox__time");
 const playbox__counter = document.querySelector(".playbox__counter");
-const lost__return = document.querySelector(".lost__return");
-const win__return = document.querySelector(".win__return");
+const return__btn = document.querySelector(".return__btn");
+const Message = document.querySelector(".Message");
 const items = document.querySelector(".items");
 const itemsRect = items.getBoundingClientRect();
 
+function addItem(className, id, img__path) {
+  const x1 = 0;
+  const x2 = itemsRect.width - 50;
+  const y1 = 0;
+  const y2 = itemsRect.height - 50;
+  const item = document.createElement("img");
+  item.setAttribute("class", className);
+  item.setAttribute("src", img__path);
+  item.setAttribute("data-id", id);
+  item.style.position = "absolute";
+  item.style.left = `${randomNumber(x1, x2)}px`;
+  item.style.top = `${randomNumber(y1, y2)}px`;
+  items.appendChild(item);
+}
+
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
 start_btn.addEventListener("click", (e) => {
   start_btn.style.display = "none";
   stop_btn.style.display = "inline";
@@ -34,24 +51,11 @@ start_btn.addEventListener("click", (e) => {
     playbox__counter.innerHTML = random__carrot;
     for (var i = 0; i < random__bug; i++) {
       /* bug Generator */
-      const bug__tmp = document.createElement("img");
-      bug__tmp.setAttribute("class", "bug__img");
-      bug__tmp.setAttribute("src", "carrot/img/bug.png");
-      bug__tmp.setAttribute("data-id", i);
-      bug__tmp.style.top = Math.floor(Math.random() * 160) + 200 + "px";
-      bug__tmp.style.left = Math.floor(Math.random() * 520) + 300 + "px";
-
-      items.appendChild(bug__tmp);
+      addItem("bug__img", i, "carrot/img/bug.png");
     }
     for (var i = 0; i < random__carrot; i++) {
       /* Carrot Generator */
-      const carrot__tmp = document.createElement("img");
-      carrot__tmp.setAttribute("class", "carrot__img");
-      carrot__tmp.setAttribute("src", "carrot/img/carrot.png");
-      carrot__tmp.setAttribute("data-id", i);
-      carrot__tmp.style.top = Math.floor(Math.random() * 160) + 200 + "px";
-      carrot__tmp.style.left = Math.floor(Math.random() * 520) + 300 + "px";
-      items.appendChild(carrot__tmp);
+      addItem("carrot__img", i, "carrot/img/carrot.png");
     }
   }
   first = false;
@@ -67,7 +71,7 @@ start_btn.addEventListener("click", (e) => {
     if (time < 0) {
       alert.play();
       clearInterval(x);
-      lost.style.display = "block";
+      popup.style.display = "block";
     }
   }, 1000);
 });
@@ -79,22 +83,11 @@ stop_btn.addEventListener("click", (e) => {
   clearInterval(x);
 });
 
-lost__return.addEventListener("click", (e) => {
+return__btn.addEventListener("click", (e) => {
   time = 10;
   first = true;
   startAud.pause();
-  lost.style.display = "none";
-  win.style.display = "none";
-  items.innerHTML = ``;
-  stop_btn.style.visibility = "visible";
-  start_btn.dispatchEvent(new Event("click"));
-});
-
-win__return.addEventListener("click", (e) => {
-  time = 10;
-  first = true;
-  lost.style.display = "none";
-  win.style.display = "none";
+  popup.style.display = "none";
   items.innerHTML = ``;
   stop_btn.style.visibility = "visible";
   start_btn.dispatchEvent(new Event("click"));
@@ -107,7 +100,8 @@ items.addEventListener("click", (e) => {
       bug_pull.play();
       clearInterval(x);
       stop_btn.style.visibility = "hidden";
-      lost.style.display = "block";
+      popup.style.display = "block";
+      Message.innerHTML = `You Lost 😭`;
     } else if (e.target.className == "carrot__img") {
       carrot_pull.play();
       const deleted = document.querySelector(`.carrot__img[data-id="${id}"]`);
@@ -117,7 +111,8 @@ items.addEventListener("click", (e) => {
         game_win.play();
         clearInterval(x);
         stop_btn.style.visibility = "hidden";
-        win.style.display = "block";
+        popup.style.display = "block";
+        Message.innerHTML = `You WON 👍`;
       }
     }
   }
