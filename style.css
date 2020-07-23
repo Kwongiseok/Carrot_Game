@@ -97,7 +97,7 @@ img:hover {
 .popup {
   transform: translateY(-175%);
   background-color: rgba(0, 0, 0, 0.6);
-  width: 60%;
+  width: 40%;
   height: 70px;
   border-radius: 18px;
   margin: auto;

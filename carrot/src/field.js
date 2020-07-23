@@ -1,0 +1,25 @@
+export default class Field {
+  "use strict";
+  constructor() {
+    this.items = document.querySelector(".items");
+    this.itemsRect = this.items.getBoundingClientRect();
+  }
+
+  addItem(className, id, img__path) {
+    const x1 = 0;
+    const x2 = this.itemsRect.width - 60;
+    const y1 = 0;
+    const y2 = this.itemsRect.height - 60;
+    const item = document.createElement("img");
+    item.setAttribute("class", className);
+    item.setAttribute("src", img__path);
+    item.setAttribute("data-id", id);
+    item.style.position = "absolute";
+    item.style.left = `${randomNumber(x1, x2)}px`;
+    item.style.top = `${randomNumber(y1, y2)}px`;
+    this.items.appendChild(item);
+  }
+}
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
