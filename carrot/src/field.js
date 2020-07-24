@@ -3,6 +3,7 @@ export default class Field {
   constructor() {
     this.items = document.querySelector(".items");
     this.itemsRect = this.items.getBoundingClientRect();
+    this.items.addEventListener("click", this.onClick);
   }
 
   addItem(className, id, img__path) {
@@ -19,7 +20,17 @@ export default class Field {
     item.style.top = `${randomNumber(y1, y2)}px`;
     this.items.appendChild(item);
   }
+  setClickListener(onItemClick) {
+    this.onItemClick = onItemClick;
+  }
+  onItemClick(event) {
+    this.onItemClick && this.onItemClick(event);
+  }
+  onClick = (e) => {
+    this.onItemClick(e);
+  };
 }
+
 function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
 }
